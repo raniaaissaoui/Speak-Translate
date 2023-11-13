@@ -15,8 +15,10 @@ function populateLanguages() {
     option.value = lang.code;
     option.innerHTML = lang.name;
     inputLanguage.appendChild(option);
+
   });
 }
+//la partie transcription 
 
 populateLanguages();
 
@@ -91,6 +93,7 @@ function stopRecording() {
 function download() {
   const text = result.innerText;
   const filename = "speech.txt";
+
 
   const element = document.createElement("a");
   element.setAttribute(
