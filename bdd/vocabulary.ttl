@@ -1,0 +1,56 @@
+@prefix ex: <http://example.com/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+#Utilisateur
+ex:utilisateur rdf:type rdfs:Class ;
+    rdfs:label "utilisateur" .
+
+ex:Id rdf:type rdf:Property ;
+    rdfs:label "Identifiant" ;
+    rdfs:domain ex:utilisateur ;
+    rdfs:range xsd:int .
+    
+ex:Nom rdf:type rdf:Property ;
+    rdfs:label "Nom" ;
+    rdfs:domain ex:utilisateur ;
+    rdfs:range xsd:string .
+
+ex:Prenom rdf:type rdf:Property ;
+    rdfs:label "Prenom" ;
+    rdfs:domain ex:utilisateur ;
+    rdfs:range xsd:string .
+
+ex:Email rdf:type rdf:Property ;
+    rdfs:label "Adresse Email" ;
+    rdfs:domain ex:utilisateur ;
+    rdfs:range xsd:string .
+
+ex:Password rdf:type rdf:Property ;
+    rdfs:label "Mot de passe" ;
+    rdfs:domain ex:utilisateur ;
+    rdfs:range xsd:string .
+
+#Langue
+ex:langues rdf:type rdfs:Class ;
+    rdfs:label "langues" .
+
+ex:No rdf:type rdf:Property ;
+    rdfs:label "Numero" ;
+    rdfs:domain ex:Agencies ;
+    rdfs:range xsd:int .
+    
+ex:Nom rdf:type rdf:Property ;
+    rdfs:label "Nom" ;
+    rdfs:domain ex:langues ;
+    rdfs:range xsd:string .
+
+ex:Native rdf:type rdf:Property ;
+    rdfs:label "Native" ;
+    rdfs:domain ex:langues ;
+    rdfs:range xsd:string .
+
+ex:Code rdf:type rdf:Property ;
+    rdfs:label "Code" ;
+    rdfs:domain ex:langues ;
+    rdfs:range xsd:string .
