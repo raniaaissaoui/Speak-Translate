@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Language Translator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="signup-container">
+      <h2>User Signup</h2>
+      <form id="signupForm" class="signup-form">
+        <div class="form-group">
+          <label for="username">Name:</label>
+          <input type="text" id="username" name="username" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <div class="form-group">
+          <button type="submit">Sign Up</button>
+        </div>
+        <div class="form-group">
+          <p class="extra-info">
+            Already have an account? <a href="login.html">Login</a>
+          </p>
+        </div>
+      </form>
+    </div>
+    <script>
+      const signupForm = document.getElementById('signupForm');
+
+      signupForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        try {
+          const response = await fetch('http://localhost:3000/api/users', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name: username,
+              email,
+              password,
+            }),
+          });
+
+          if (response.ok) {
+            window.location.href = 'login.html';
+          } else {
+            const errorData = await response.json();
+            alert(`An error occured: ${errorData.message}`);
+          }
+        } catch (error) {
+          const errorMessage = 'An error occurred during signup';
+          alert(errorMessage);
+        }
+      });
+    </script>
+  </body>
+</html>

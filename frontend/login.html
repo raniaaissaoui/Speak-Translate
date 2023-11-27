@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Language Translator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="login-container">
+      <h2>Login</h2>
+      <form id="loginForm" class="login-form">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <div class="form-group">
+          <button type="submit">Login</button>
+        </div>
+        <div class="form-group">
+          <p class="extra-info">
+            Don't have an account? <a href="signUp.html">Sign Up</a>
+          </p>
+        </div>
+      </form>
+    </div>
+    <script>
+      const loginForm = document.getElementById('loginForm');
+
+      loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        try {
+          const response = await fetch('http://localhost:3000/api/auth', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email,
+              password,
+            }),
+          });
+
+          if (response.ok) {
+            const token = response.headers.get('x-auth-token');
+            if (token) {
+              localStorage.setItem('jwtToken', token);
+            } else {
+              console.log('x-auth-token not found in response headers');
+            }
+            window.location.href = 'index.html';
+          } else {
+            const errorData = await response.json();
+            alert(`An error occured: ${errorData.message}`);
+          }
+        } catch (error) {
+          const errorMessage = 'An error occurred during signup';
+          alert(errorMessage);
+        }
+      });
+    </script>
+  </body>
+</html>
