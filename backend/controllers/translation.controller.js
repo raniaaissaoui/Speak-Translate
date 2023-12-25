@@ -3,12 +3,13 @@ const httpStatus = require('http-status-codes').StatusCodes;
 
 const translationController = {
   addTranslation: async (req, res) => {
-    const { text, translation } = req.body;
+    const { text, translation, date } = req.body;
 
     const newTranslation = await Translation.create({
       userId: req.user.id,
-      text,
+      date,
       translation,
+      text,
     });
 
     res

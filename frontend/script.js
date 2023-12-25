@@ -91,7 +91,9 @@ populateLanguages();
 
 function speechToText() {
   try {
+    
     recognition = new SpeechRecognition();
+    //recognition.lang = navigator.language; // Added line to detect language automatically
     recognition.lang = inputLanguage.value;
     recognition.interimResults = true;
     recordBtn.classList.add("recording");
@@ -177,6 +179,7 @@ const swapBtn = document.querySelector(".swap-position"),
   inputTextElem = document.querySelector("#input-text"),
   outputTextElem = document.querySelector("#output-text");
 
+  
   swapBtn.addEventListener("click", (e) => {
     const temp = inputLang.innerHTML;
     inputLang.innerHTML = outputLanguage.innerHTML;
@@ -200,9 +203,11 @@ const swapBtn = document.querySelector(".swap-position"),
       inputLangDropdown.querySelector(".selected").dataset.value;
     const outputLanguage =
       outputLanguageDropdown.querySelector(".selected").dataset.value;
+
     const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLang}&tl=${outputLanguage}&dt=t&q=${encodeURI(
       inputText
-    )}`;
+)}`;
+
     fetch(url)
       .then((response) => response.json())
       .then((json) => {

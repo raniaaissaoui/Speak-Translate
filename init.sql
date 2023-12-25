@@ -52,6 +52,7 @@ CREATE TABLE `translations` (
   `id` int NOT NULL AUTO_INCREMENT,
   `userId` int NOT NULL,
   `text` varchar(500) NOT NULL,
+  `date` varchar(500) NOT NULL,
   `translation` varchar(500) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `translations_FK` (`userId`),

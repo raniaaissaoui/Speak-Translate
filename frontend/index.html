@@ -38,7 +38,7 @@
       <p class="heading">Speech to Text</p>
       <div class="options">
         <div class="anguage">
-          <p>Language</p>
+          <p>From</p>
           <select name="input-language" id="language"></select>
         </div>
       </div>
@@ -61,17 +61,10 @@
     <div class="container">
       <div class="card input-wrapper">
         <div class="from">
-          <span class="heading">From :</span>
           <div class="dropdown-container" id="input-language">
-            <div class="dropdown-toggle">
-              <ion-icon name="globe-outline"></ion-icon>
-              <span class="selected" data-value="auto">Auto Detect</span>
-              <ion-icon name="chevron-down-outline"></ion-icon>
-            </div>
-            <ul class="dropdown-menu">
-              <li class="option active">DropDown Menu Item 1</li>
-              <li class="option">DropDown Menu Item 2</li>
-            </ul>
+              <span class="selected" data-value="auto"></span>
+            
+          
           </div>
         </div>
         <div spellcheck="false" placeholder="Text will be shown here">
@@ -81,7 +74,6 @@
 
       <div class="center">
         <div class="swap-position">
-          <ion-icon name="swap-horizontal-outline"></ion-icon>
         </div>
       </div>
 
@@ -161,8 +153,20 @@
           if (pTagValue == 'Start Listening') {
             const spokenText = document.getElementById('input-text').value;
             const translatedText = document.getElementById('output-text').value;
-            if (spokenText != '' && translatedText != '')
-              sendData(spokenText, translatedText);
+            if (spokenText != '' && translatedText != ''){
+           /*
+              var date_g = new Date();
+              var dd = String(today.getDate()).padStart(2, '0');
+              var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+              var yyyy = today.getFullYear();
+              
+              date_g = mm + '/' + dd + '/' + yyyy;
+*/
+              const dateNow = Date.now();            
+            sendData(spokenText, translatedText, dateNow);
+            }
+          
+          
           }
         });
       });
@@ -224,14 +228,19 @@
         }
       }
 
-      async function sendData(spokenText, translatedText) {
+      async function sendData(spokenText, translatedText, date_g) {
         const token = localStorage.getItem('jwtToken');
         const data = {
+       
+          date : "test",
           text: spokenText,
+          
+          //text: date_g,
           translation: translatedText,
+       
         };
-
-        try {
+     
+try {
           const response = await fetch(
             'http://localhost:3000/api/translations',
             {
@@ -249,9 +258,11 @@
           }
 
           const responseData = await response.json();
-
+          console.log(responseData)
           document.getElementById('input-text').value = '';
           document.getElementById('output-text').value = '';
+
+
 
           updateTranslationTable(responseData.translation);
         } catch (error) {
@@ -268,7 +279,8 @@
     <td>${data.id}</td>
     <td>${data.text}</td>
     <td>${data.translation}</td>
-  `;
+    
+    `;
         translationTableBody.appendChild(newRow);
       }
     </script>
